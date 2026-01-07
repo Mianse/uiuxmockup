@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-      classame={appFont.className}
+      className={appFont.className}
       >
         {children}
       </body>
