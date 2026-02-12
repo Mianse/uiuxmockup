@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -7,17 +8,26 @@ import { Camera, Share, Sparkles } from 'lucide-react';
 import { THEME_NAME_LIST } from '@/data/Themes';
 import { THEMES } from '@/data/Themes';
 import { useState } from 'react';
+import { projectType } from '@/type/types';
 
-const SetingSection = () => {
+type Props = {
+  projectDetail:projectType|undefined
+}
+
+const SetingSection = ({projectDetail}:Props) => {
   const [selectedTheme,setSelectedTheme] =useState('AURORA_INK');
-  const [projectName,setProjectName] = useState('')
+  const [projectName,setProjectName] = useState(projectDetail?.projectName)
   const [userNeScreenInput,setUserNewScreenInput] = useState<string>()
+  useEffect(()=>{
+    projectDetail&&setProjectName(projectDetail?.projectName)
+  },[projectDetail])
   return (
     <div className='w-[350px]  h-[90vh] p-5 border-r'>
         <h2 className="font-medium text-lg">Setting</h2>
         <div className="mt-5">
             <h2 className="text-sm mb-1">project name</h2>
         <Input placeholder="project name"
+        value={projectName}
         onChange={(event)=>setProjectName(event.target.value)}
         />
 
